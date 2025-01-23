@@ -12,11 +12,10 @@ class PostListAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        if request.method == "GET":
-            post_qs = Post.objects.all()
-            serializer = PostSerializer(instance=post_qs, many=True)
-            data = serializer.data
-            return Response(data)
+        post_qs = Post.objects.all()
+        serializer = PostSerializer(instance=post_qs, many=True)
+        data = serializer.data
+        return Response(data)
 
     def post(self, request):
         serializer = PostSerializer(data=request.data)
@@ -32,11 +31,10 @@ class PostDetailAPIView(APIView):
         return get_object_or_404(Post, pk=pk)
 
     def get(self, request, pk):
-        if request.method == "GET":
-            post = self.get_object(pk)
-            serializer = PostDetailSerializer(post)
-            data = serializer.data
-            return Response(data)
+        post = self.get_object(pk)
+        serializer = PostDetailSerializer(post)
+        data = serializer.data
+        return Response(data)
 
     def put(self, request, pk):
         post = self.get_object(pk)
